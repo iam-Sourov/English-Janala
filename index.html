@@ -9,38 +9,101 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
         integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
+
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+        * {
+            font-family: "Poppins";
+        }
+    </style>
 </head>
 
-<body class="">
+<body class=''>
     <section class="border-red-100 ">
-        <nav class="flex justify-around items-center border border-[#C6BDBD] bg-[#badeff42] backdrop-blur-xl">
-            <div class="flex items-center">
+        <div class="navbar bg-base-100 shadow-sm">
+            <div class="dropdown">
+                <div tabindex="0" role="button" class="btn btn-ghost lg:hidden">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M4 6h16M4 12h8m-8 6h16" />
+                    </svg>
+                </div>
+                <ul tabindex="0" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
+                    <li><button id="faqBtn" class="btn btn-soft btn-primary  border-[#422AD5] rounded"><i
+                                class="fa-solid fa-circle-question"></i>FAQ</button></li>
+                    <li><button id="faqBtn" class="btn btn-soft btn-primary  border-[#422AD5] rounded"><i
+                                class="fa-solid fa-bookmark"></i>Learn</button></li>
+                    <li><button id="faqBtn" class="btn btn-soft btn-primary  border-[#422AD5] rounded"><i
+                                class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button></li>
+                    <li>
+                        <a>Parent</a>
+                        <ul class="p-2">
+                            <li><a>Submenu 1</a></li>
+                            <li><a>Submenu 2</a></li>
+                        </ul>
+                    </li>
+                    <li><a>Item 3</a></li>
+                </ul>
+            </div>
+            <div class="navbar-start">
                 <h1>Enlish</h1>
                 <img src="assets/logo.png" alt="">
                 <h1>জানালা</h1>
             </div>
-            <div class="flex items-center gap-4 text-[#422AD5]">
-                <button class="flex  items-center gap-2 border border-[#422AD5] rounded px-3 py-1 "><i
+            <div class="md:navbar-end hidden lg:flex space-x-3">
+                <button id="faqBtn" class="btn btn-soft btn-primary  border-[#422AD5] rounded"><i
                         class="fa-solid fa-circle-question"></i>FAQ</button>
-                <button class="flex  items-center gap-2 border border-[#422AD5] rounded px-3 py-1 "><i
-                        class="fa-solid fa-circle-question"></i>Learn</button>
-                <button class="flex  items-center gap-2 border border-[#422AD5] rounded px-3 py-1 "><i
+                <button id="faqBtn" class="btn btn-soft btn-primary  border-[#422AD5] rounded"><i
+                        class="fa-solid fa-bookmark"></i>Learn</button>
+                <button id="faqBtn" class="btn btn-soft btn-primary  border-[#422AD5] rounded"><i
                         class="fa-solid fa-arrow-right-from-bracket"></i>Logout</button>
+
             </div>
-        </nav>
-        <section class="hero">
-            <h1></h1>
-            <p></p>
-            <div>
-                <form>
-                <input type="text" placeholder="Medium" class="input input-md" />
-            </form>
-            </div>
-            
-        </section>
+        </div>
     </section>
+    <section class="hero container mx-auto">
+        <div class="md:flex md:flex-row flex flex-col-reverse justify-center
+             items-center">
+            <div class="md:flex flex-col flex-1 md:gap-5 p-3">
+                <h1 class="mb-4"><span class="text-[#00BCFF]">English</span> is Easy!!</h1>
+                <p class="text-wrap">আজ থেকেই আপনার ভাষা শেখার যাত্রা শুরু করুন। আপনি যদি নতুন হন অথবা আপনার দক্ষতা
+                    বাড়াতে চান, আমাদের
+                    Interactive Lessons আপনাকে নিয়ে যাবে অন্য একটি Level এ</p>
+                <div class="md:w-80 w-full md:flex flex justify-center items-center flex-col md:flex-col gap-3 mt-10">
+                    <input type="text" placeholder="Enter Your Name" class="input input-md" />
+                    <input type="password" placeholder=".................." class="input input-md" />
+                    <button class="w-fit flex  items-center gap-2 border border-[#422AD5] rounded px-2 py-1 "><i
+                            class="fa-solid fa-arrow-right-from-bracket"></i>Get Started</button>
+                    </form>
+                </div>
+            </div>
+            <div class="md:flex-1 ">
+                <img class="" src="assets/hero-student.png" alt="">
+            </div>
+        </div>
+    </section>
+    <section class="container mx-auto ">
+        <h1 class="py-4 text-center"><span class="text-[#00BCFF]">Let's </span>Learn Vocabulary</h1>
+        <div id="level-container" class="flex flex-wrap justify-center items-center gap-4 ">
+
+        </div>
+    </section>
+    <section id="word-container"
+        class="conatiner mx-auto bg-[#F8F8F8] text-center p-10 grid grid-cols-3 gap-5 items-stretch">
+        <div class="flex flex-col gap-5">
+            <p>আপনি এখনো কোন Lesson Select করেন</p>
+            <h1>একটি Lesson Select করুন।</h1>
+        </div>
+
+    </section>
+    <script src="script.js"></script>
 </body>
 
 </html>
