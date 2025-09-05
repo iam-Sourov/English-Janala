@@ -28,8 +28,19 @@ const removeActive = () => {
     })
 
 }
+const manageSpinner = (status) => {
+    if (status == true) {
+        document.getElementById('spinner').classList.remove("hidden");
+        document.getElementById('word-container').classList.add("hidden");
+    }
+    else {
+        document.getElementById('word-container').classList.remove('hidden');
+        document.getElementById('spinner').classList.add('hidden');
+    }
+}
 // Words Of Level Section
 const loadLevelWord = (id) => {
+    manageSpinner(true)
     const url = `https://openapi.programming-hero.com/api/level/${id}`
     fetch(url)
         .then((res) => res.json())
@@ -38,13 +49,12 @@ const loadLevelWord = (id) => {
             const clickBtn = document.getElementById(`lesson-btn-${id}`)
             clickBtn.classList.add('active');
             displayWords(words.data)
-
         });
 }
+
 const displayWords = (words) => {
     const wordContainer = document.getElementById('word-container');
     wordContainer.innerHTML = '';
-
     if (words.length == 0) {
         wordContainer.innerHTML = `
         <div id="info" class=" col-span-3  bg-[#F8F8F8] p-8 m-2 space-y-4">
@@ -53,13 +63,14 @@ const displayWords = (words) => {
             <h1 class="text-2xl">নেক্সট Lesson এ যান</h1>
         </div>
         `;
+        manageSpinner(false);
         return;
     }
 
     words.forEach(word => {
         const card = document.createElement('div');
         card.innerHTML = `
-                <div class="card-body w-full conatiner mx-auto  md:w-80 bg-[#FFFFFF] rounded shadow-md flex justify-center gap-2 p-10 text-center">
+                <div class="card-body w-full conatiner mx-auto  md:w-80 md:h-60 bg-[#FFFFFF] rounded shadow-md flex justify-center gap-2 p-10 text-center">
                     <h2 class="card-title-center text-2xl">
                         ${word.word ? word.word : "No Word Is Found"}
                     </h2>
@@ -73,8 +84,10 @@ const displayWords = (words) => {
                     </div>
                 </div>
         `
+
         wordContainer.append(card)
     });
+    manageSpinner(false)
 
 
 }
@@ -88,17 +101,6 @@ const loadWordDetails = async (id) => {
 const displayWordDetails = (word) => {
     console.log(word);
     const detailContainer = document.getElementById("detail-container");
-    // "word": "Eager",
-    // "meaning": "আগ্রহী",
-    // "pronunciation": "ইগার",
-    // "level": 1,
-    // "sentence": "The kids were eager to open their gifts.",
-    // "points": 1,
-    // "partsOfSpeech": "adjective",
-    // "synonyms": [
-    //   "enthusiastic",
-    //   "excited",
-    //   "keen"
     detailContainer.innerHTML = `
     <div class="">
             <h1 class="text-3xl">${word.word} (<i class="fa-solid fa-microphone"></i>: ${word.pronunciation} )</h1>
@@ -114,9 +116,9 @@ const displayWordDetails = (word) => {
         <div>
             <h1 class=" text-xl">সমার্থক শব্দ গুলোসমার্থক শব্দ গুলো</h1>
             <div class="flex items-center gap-3">
-                <p class="bg-[#EDF7FF] border rounded-lg p-2 m-2]">${word.synonyms[0]}</p>
-                <p class="bg-[#EDF7FF] border rounded-lg p-2 m-2]">${word.synonyms[1]}</p>
-                <p class="bg-[#EDF7FF] border rounded-lg p-2 m-2]">${word.synonyms[2]}</p>
+                <p class="bg-[#EDF7FF] border rounded-lg p-2 m-2]">${word.synonyms[0] ? word.synonyms[0] : "Not Available To The Database"}</p>
+                <p class="bg-[#EDF7FF] border rounded-lg p-2 m-2]">${word.synonyms[1] ? word.synonyms[0] : "Not Available To The Database"}</p>
+                <p class="bg-[#EDF7FF] border rounded-lg p-2 m-2]">${word.synonyms[2] ? word.synonyms[0] : "Not Available To The Database"}</p>
             </div>
         </div>
     `
