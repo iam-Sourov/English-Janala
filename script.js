@@ -2,7 +2,7 @@ const url = 'https://openapi.programming-hero.com/api/levels/all'
 const loadLevels = () => {
     fetch(url)
         .then((res) => res.json())
-        .then(levels => displayLessons(levels.data));
+        .then((levels) => displayLessons(levels.data));
 }
 // Level Section
 const displayLessons = (lessons) => {
@@ -13,24 +13,37 @@ const displayLessons = (lessons) => {
         const btnDiv = document.createElement('div')
 
         btnDiv.innerHTML = `
-        <button onclick="loadLevelWord(${lesson.level_no})" class="btn btn-soft btn-primary border-[#422AD5] rounded">
+        <button id="lesson-btn-${lesson.level_no}" onclick="loadLevelWord(${lesson.level_no})" class="btn btn-soft btn-primary border-[#422AD5] rounded lessonBtnClass">
         <i class="fa-solid fa-bookmark"></i>Lesson - ${lesson.level_no}
         </button>
         `
         levelContainer.appendChild(btnDiv);
     }
 }
+// lesson Button
+const removeActive = () => {
+    const lessonBtnClass = document.querySelectorAll(".lessonBtnClass")
+    lessonBtnClass.forEach(btn => {
+        btn.classList.remove("active");
+    })
+
+}
 // Words Of Level Section
 const loadLevelWord = (id) => {
     const url = `https://openapi.programming-hero.com/api/level/${id}`
     fetch(url)
         .then((res) => res.json())
-        .then(words => displayWords(words.data));
+        .then(words => {
+            removeActive()
+            const clickBtn = document.getElementById(`lesson-btn-${id}`)
+            clickBtn.classList.add('active');
+            displayWords(words.data)
+
+        });
 }
 const displayWords = (words) => {
     const wordContainer = document.getElementById('word-container');
     wordContainer.innerHTML = '';
-
 
     if (words.length == 0) {
         wordContainer.innerHTML = `
@@ -43,28 +56,74 @@ const displayWords = (words) => {
         return;
     }
 
-
-
     words.forEach(word => {
         const card = document.createElement('div');
         card.innerHTML = `
-                <div class="card-body w-full  md:w-80 bg-[#FFFFFF] rounded shadow-md flex justify-center gap-2 p-10 text-center">
+                <div class="card-body w-full conatiner mx-auto  md:w-80 bg-[#FFFFFF] rounded shadow-md flex justify-center gap-2 p-10 text-center">
                     <h2 class="card-title-center text-2xl">
                         ${word.word ? word.word : "No Word Is Found"}
                     </h2>
                     <p class="text-md">Meaning /Pronounciation</p>
                     <p class="text-2xl">${word.meaning ? word.meaning : "No Meaning Is Found"}/${word.pronunciation}</p>
                     <div class="flex justify-between items-center">
-                        <div class="btn btn-soft btn-primary hover:bg-primary bg-[#1A91FF1A] w-14 h-14 rounded-lg flex justify-center items-center"><i
+                        <div onclick="loadWordDetails(${word.id})" class="btn btn-soft btn-primary hover:bg-primary bg-[#1A91FF1A] w-14 h-14 rounded-lg flex justify-center items-center"><i
                                 class="fa-solid fa-circle-info"></i></div>
                         <div class="btn btn-soft btn-primary hover:bg-primary bg-[#1A91FF1A] w-14 h-14 rounded-lg flex justify-center items-center"><i
                                 class=" fa-solid fa-volume-high"></i></div>
                     </div>
                 </div>
         `
-        wordContainer.appendChild(card)
+        wordContainer.append(card)
     });
 
 
 }
+
+const loadWordDetails = async (id) => {
+    const url = `https://openapi.programming-hero.com/api/word/${id}`;
+    const res = await fetch(url);
+    const details = await res.json();
+    displayWordDetails(details.data);
+}
+const displayWordDetails = (word) => {
+    console.log(word);
+    const detailContainer = document.getElementById("detail-container");
+    // "word": "Eager",
+    // "meaning": "আগ্রহী",
+    // "pronunciation": "ইগার",
+    // "level": 1,
+    // "sentence": "The kids were eager to open their gifts.",
+    // "points": 1,
+    // "partsOfSpeech": "adjective",
+    // "synonyms": [
+    //   "enthusiastic",
+    //   "excited",
+    //   "keen"
+    detailContainer.innerHTML = `
+    <div class="">
+            <h1 class="text-3xl">${word.word} (<i class="fa-solid fa-microphone"></i>: ${word.pronunciation} )</h1>
+            <div class="">
+                <h3 class="text-2xl">Meaning</h3>
+                <p class="text-xl">${word.meaning}</p>
+            </div>
+        </div>
+        <div class="">
+            <h1 class="text-2xl">Example</h1>
+            <p class="text-xl text-neutral-700">${word.sentence}</p>
+        </div>
+        <div>
+            <h1 class=" text-xl">সমার্থক শব্দ গুলোসমার্থক শব্দ গুলো</h1>
+            <div class="flex items-center gap-3">
+                <p class="bg-[#EDF7FF] border rounded-lg p-2 m-2]">${word.synonyms[0]}</p>
+                <p class="bg-[#EDF7FF] border rounded-lg p-2 m-2]">${word.synonyms[1]}</p>
+                <p class="bg-[#EDF7FF] border rounded-lg p-2 m-2]">${word.synonyms[2]}</p>
+            </div>
+        </div>
+    `
+    document.getElementById("my_modal_5").showModal();
+
+}
+
+
+
 loadLevels()

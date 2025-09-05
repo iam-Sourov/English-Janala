@@ -21,6 +21,10 @@
         * {
             font-family: "Poppins";
         }
+        .active {
+            background: #422AD5;
+            color: white;
+        }
     </style>
 </head>
 
@@ -100,9 +104,26 @@
             <div id="info" class=" col-span-3 bg-[#F8F8F8]  p-8 m-2">
                 <h1>একটি Lesson Select করুন।</h1>
             </div>
-            
+
         </div>
 
+    </section>
+    <section class="modal">
+        <!-- Open the modal using ID.showModal() method -->
+        <dialog id="my_modal_5" class="modal modal-bottom sm:modal-middle">
+            <div class="modal-box">
+                <div id="detail-container" class="space-y-7">
+
+                </div>
+                <div class="modal-action">
+                    <form method="dialog">
+                        <!-- if there is a button in form, it will close the modal -->
+                        <button class="btn w-fit flex gap-2 border border-[#422AD5] hover:bg-[#422AD5] hover:text-white rounded px-2 py-1 ">Complete
+                            Learning</button>
+                    </form>
+                </div>
+            </div>
+        </dialog>
     </section>
     <script src="script.js"></script>
 </body>
